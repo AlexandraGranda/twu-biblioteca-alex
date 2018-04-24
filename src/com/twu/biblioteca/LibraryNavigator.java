@@ -69,6 +69,7 @@ public class LibraryNavigator {
         if (flag){
             library.books.get(bookIndex).returnBook();
             library.listBooks();
+            System.out.println("\nThank you for returning the book: "+library.books.get(bookIndex).title);
         }
         else {
             System.out.println("That is not a valid book to return");
