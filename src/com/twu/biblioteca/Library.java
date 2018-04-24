@@ -8,11 +8,13 @@ public class Library {
 
     public ArrayList<Book> listBooks(){
 
-        System.out.println("Title\t\tAuthor\t\tPublication Year");
+        System.out.println("No.\t\tTitle\t\t\t\t\t\t\tAuthor\t\t\t\t\tPublication Year");
+        int i = 0;
 
         for (Book book: books) {
 
-            System.out.println(book.title+"\t\t"+book.author+"\t\t"+book.yearPublished);
+
+            System.out.printf("%-7.7s %-30.30s  %-22.22s  %-10.10s%n", ""+(++i), book.title, book.author, book.yearPublished);
         }
 
         return this.books;
