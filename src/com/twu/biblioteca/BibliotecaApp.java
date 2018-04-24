@@ -9,7 +9,6 @@ public class BibliotecaApp {
         String answer;
         char option;
         Scanner scanner = new Scanner(System.in);
-        boolean correctOption = false;
         boolean quit = false;
         Library library = new Library();
         int optionNumber;
@@ -18,15 +17,13 @@ public class BibliotecaApp {
         addBooksToLibrary(library);
         menuCreator.printWelcomeMessage();
 
+        while (!quit){
+            menuCreator.printMenu();
+            answer = scanner.nextLine();
+            option = answer.charAt(0);
 
-        menuCreator.printMenu();
-        answer = scanner.nextLine();
-        option = answer.charAt(0);
-
-        if (!Character.isLetter(option)){
-            optionNumber = Integer.parseInt(option+"");
-            if (optionNumber>=1&&optionNumber<=4){
-                correctOption = true;
+            if (!Character.isLetter(option)){
+                optionNumber = Integer.parseInt(option+"");
                 switch (optionNumber){
                     case 1:
                         library.listBooks();
@@ -37,6 +34,7 @@ public class BibliotecaApp {
                         quit = true;
                         System.out.println("You are now exiting the Biblioteca system...");
                     default:
+                        System.out.println("Select a valid option!");
                         break;
 
                 }
@@ -44,21 +42,9 @@ public class BibliotecaApp {
             }
             else {
                 System.out.println("Select a valid option!, please enter only the number of the option you selected");
-                answer = scanner.nextLine();
-                option = answer.charAt(0);
             }
+
         }
-        else {
-            System.out.println("Select a valid option!, please enter only the number of the option you selected");
-            answer = scanner.nextLine();
-            option = answer.charAt(0);
-        }
-
-
-
-
-
-
     }
 
     private static void addBooksToLibrary(Library library) {
