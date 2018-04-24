@@ -19,10 +19,21 @@ public class BibliotecaTest {
     @Test
     public void shouldPrintMenu(){
         MenuCreator menuCreator = new MenuCreator();
-        String expectedResult = "Main menu:\n1.- List books\n2.- Checkout book\n3.- Return book\n4.- Quit";
+        String expectedResult = "\nMain menu:\n1.- List books\n2.- Checkout book\n3.- Return book\n4.- Quit\n";
 
         String actualResult = menuCreator.printMenu();
 
         Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void shouldCheckoutBook(){
+        Book book = new Book("Marley and Me", "I dont know", "2008", false);
+        boolean expectedValue = true;
+        book.checkoutBook();
+
+        boolean actualValue = book.isLent;
+
+        Assert.assertEquals(expectedValue, actualValue);
     }
 }
