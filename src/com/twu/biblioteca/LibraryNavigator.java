@@ -56,9 +56,10 @@ public class LibraryNavigator {
     private void returnBook(Scanner scanner, Library library) {
         String answer;
         System.out.println("\nPlease enter the title of the book you want to return:");
-        answer = scanner.nextLine();
         boolean flag = false;
         int bookIndex = 0;
+
+        answer = scanner.nextLine();
 
         for (int i =0;i<library.books.size();i++) {
             if (answer.equalsIgnoreCase(library.books.get(i).title)){
@@ -66,13 +67,17 @@ public class LibraryNavigator {
                 bookIndex = i;
             }
         }
-        if (flag){
+        validateBelongingBook(library, flag, bookIndex);
+    }
+
+    private void validateBelongingBook(Library library, boolean flag, int bookIndex) {
+        if (flag&&(library.books.get(bookIndex).isLent==true)){
             library.books.get(bookIndex).returnBook();
             library.listBooks();
             System.out.println("\nThank you for returning the book: "+library.books.get(bookIndex).title);
         }
         else {
-            System.out.println("That is not a valid book to return");
+            System.out.println("\nThat is not a valid book to return");
         }
     }
 
@@ -84,6 +89,11 @@ public class LibraryNavigator {
         System.out.println("\nPlease enter the number of the book you want to check out:");
         answer = scanner.nextLine();
         bookNumber = answer.charAt(0);
+        validateAvailableBook(library, answer, bookNumber);
+    }
+
+    private void validateAvailableBook(Library library, String answer, char bookNumber) {
+        Book checkedOutBook;
         if (Character.isLetter(bookNumber)){
             System.out.println("That book is not available");
         }
