@@ -8,7 +8,7 @@ public class Library {
 
     public ArrayList<Book> listBooks(){
 
-        System.out.println("No.\t\tTitle\t\t\t\t\t\t\tAuthor\t\t\t\t\tPublication Year");
+        System.out.println("\nNo.\t\tTitle\t\t\t\t\t\t\tAuthor\t\t\t\t\tPublication Year");
 
         for (int i =0;i<books.size();i++) {
             if (books.get(i).isLent==false){

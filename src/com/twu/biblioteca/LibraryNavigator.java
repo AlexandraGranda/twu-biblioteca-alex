@@ -31,9 +31,12 @@ public class LibraryNavigator {
                     case 2:
                         checkout(scanner, library);
                         break;
+                    case 3:
+                        break;
                     case 4:
                         quit = true;
                         System.out.println("You are now exiting the Biblioteca system...");
+                        break;
                     default:
                         System.out.println("Select a valid option!");
                         break;
@@ -49,13 +52,27 @@ public class LibraryNavigator {
     }
 
     private void checkout(Scanner scanner, Library library) {
-        String bookNumber;
+        String answer;
         Book checkedOutBook;
-        System.out.println("Please enter the number of the book you want to check out:");
-        bookNumber = scanner.nextLine();
-        checkedOutBook = library.books.get(Integer.parseInt(bookNumber)-1);
-        checkedOutBook.checkoutBook();
-        System.out.println("\nThank you! Enjoy the book: "+checkedOutBook.title);
+        char bookNumber;
+        library.listBooks();
+        System.out.println("\nPlease enter the number of the book you want to check out:");
+        answer = scanner.nextLine();
+        bookNumber = answer.charAt(0);
+        if (Character.isLetter(bookNumber)){
+            System.out.println("That book is not available");
+        }
+        else if (Integer.parseInt(bookNumber+"")>library.books.size()){
+            System.out.println("That book is not available");
+        }
+        else if (library.books.get(Integer.parseInt(bookNumber+"")-1).isLent==true){
+            System.out.println("That book is not available");
+        }
+        else {
+            checkedOutBook = library.books.get(Integer.parseInt(answer)-1);
+            checkedOutBook.checkoutBook();
+            System.out.println("\nThank you! Enjoy the book: "+checkedOutBook.title);
+        }
     }
 
     private void addBooksToLibrary(Library library) {
