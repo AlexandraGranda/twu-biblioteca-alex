@@ -55,8 +55,7 @@ public class LibraryNavigator {
         bookNumber = scanner.nextLine();
         checkedOutBook = library.books.get(Integer.parseInt(bookNumber)-1);
         checkedOutBook.checkoutBook();
-        library.listBooks();
-        System.out.println("\nYou have borrowed the following book: "+checkedOutBook.title);
+        System.out.println("\nThank you! Enjoy the book: "+checkedOutBook.title);
     }
 
     private void addBooksToLibrary(Library library) {
