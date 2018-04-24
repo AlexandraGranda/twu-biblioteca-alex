@@ -17,4 +17,8 @@ public class Book {
     public void checkoutBook() {
         isLent = true;
     }
+
+    public void returnBook() {
+        isLent = false;
+    }
 }

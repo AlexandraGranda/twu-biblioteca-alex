@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class LibraryNavigator {
@@ -32,6 +33,7 @@ public class LibraryNavigator {
                         checkout(scanner, library);
                         break;
                     case 3:
+                        returnBook(scanner, library);
                         break;
                     case 4:
                         quit = true;
@@ -48,6 +50,28 @@ public class LibraryNavigator {
                 System.out.println("Select a valid option!, please enter only the number of the option you selected");
             }
 
+        }
+    }
+
+    private void returnBook(Scanner scanner, Library library) {
+        String answer;
+        System.out.println("\nPlease enter the title of the book you want to return:");
+        answer = scanner.nextLine();
+        boolean flag = false;
+        int bookIndex = 0;
+
+        for (int i =0;i<library.books.size();i++) {
+            if (answer.equalsIgnoreCase(library.books.get(i).title)){
+                flag = true;
+                bookIndex = i;
+            }
+        }
+        if (flag){
+            library.books.get(bookIndex).returnBook();
+            library.listBooks();
+        }
+        else {
+            System.out.println("That is not a valid book to return");
         }
     }
 

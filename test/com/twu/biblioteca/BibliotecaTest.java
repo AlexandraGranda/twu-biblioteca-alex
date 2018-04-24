@@ -36,5 +36,14 @@ public class BibliotecaTest {
 
         Assert.assertEquals(expectedValue, actualValue);
     }
-    
+    @Test
+    public void testReturnBook(){
+        Book book = new Book("Marley and Me", "I dont know", "2008", true);
+        boolean expectedValue = false;
+        book.returnBook();
+
+        boolean actualValue = book.isLent;
+
+        Assert.assertEquals(expectedValue, actualValue);
+    }
 }
