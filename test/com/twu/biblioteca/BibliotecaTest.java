@@ -3,8 +3,6 @@ package com.twu.biblioteca;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 public class BibliotecaTest {
     @Test
     public void shouldPrintWelcomeMessage(){

@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Library {
     ArrayList<Book> books = new ArrayList();
@@ -17,5 +16,33 @@ public class Library {
         }
 
         return this.books;
+    }
+
+    protected void addBooksToLibrary() {
+        books.add(new Book("The Killing Woods", "Lucy Christopher", "2014", false));
+        books.add(new Book("The Mark of the Dragonfly", "Jaleigh Johnson", "2014", false));
+        books.add(new Book("Defy", "Sara Larson", "2014", false));
+        books.add(new Book("Great Expectations", "Charles Dickens", "1861", false));
+        books.add(new Book("Moby-Dick", "Herman Melville", "1851", false));
+        books.add(new Book("Crime and Punishment", "Fiodor Dostoievsky", "1866", false));
+        books.add(new Book("To the Lighthouse", "Virginia Woolf", "1927", false));
+    }
+
+    protected void validateAvailableBook(String answer, char bookNumber) {
+        Book checkedOutBook;
+        if (Character.isLetter(bookNumber)){
+            System.out.println("That book is not available");
+        }
+        else if (Integer.parseInt(bookNumber+"")>books.size()){
+            System.out.println("That book is not available");
+        }
+        else if (books.get(Integer.parseInt(bookNumber+"")-1).isLent==true){
+            System.out.println("That book is not available");
+        }
+        else {
+            checkedOutBook = books.get(Integer.parseInt(answer)-1);
+            checkedOutBook.checkoutBook();
+            System.out.println("\nThank you! Enjoy the book: "+checkedOutBook.title);
+        }
     }
 }
