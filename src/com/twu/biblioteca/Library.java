@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Library {
     ArrayList<Book> books = new ArrayList();
+    ArrayList<Movie> movies = new ArrayList<Movie>();
 
     public ArrayList<Book> listBooks(){
 
@@ -18,6 +19,17 @@ public class Library {
         return this.books;
     }
 
+    public ArrayList<Movie> listMovies(){
+        System.out.println("\nNo.\t\tTitle\t\t\t\t\tDirector\t\t\t\t\tYear\t\tRating");
+
+        for (int i = 0 ; i < movies.size() ; i++){
+            Movie movie = movies.get(i);
+            System.out.printf("%-7.7s %-22.22s  %-26.26s  %-11.11s %4.4s%n", ""+(i+1), movie.name, movie.director, movie.year, (movie.rating!=0) ? movie.rating : "None");
+
+        }
+        return this.movies;
+    }
+
     protected void addBooksToLibrary() {
         books.add(new Book("The Killing Woods", "Lucy Christopher", "2014", false));
         books.add(new Book("The Mark of the Dragonfly", "Jaleigh Johnson", "2014", false));
@@ -28,8 +40,9 @@ public class Library {
         books.add(new Book("To the Lighthouse", "Virginia Woolf", "1927", false));
     }
 
-    protected void validateAvailableBook(String answer, char bookNumber) {
+    protected boolean validateAvailableBook(String answer, char bookNumber) {
         Book checkedOutBook;
+        boolean availableBook = false;
         if (Character.isLetter(bookNumber)){
             System.out.println("That book is not available");
         }
@@ -43,6 +56,18 @@ public class Library {
             checkedOutBook = books.get(Integer.parseInt(answer)-1);
             checkedOutBook.checkoutBook();
             System.out.println("\nThank you! Enjoy the book: "+checkedOutBook.title);
+            availableBook = true;
         }
+        return availableBook;
+    }
+
+    protected void addMoviesToLibrary(){
+        movies.add(new Movie("Tootsie", "1982", "Sydney Pollack", 0));
+        movies.add(new Movie("The Godfather", "1972", "Francis Ford Coppola", 9));
+        movies.add(new Movie("Annie Hall", "1977", "Woody Allen", 8));
+        movies.add(new Movie("The Red Shoes", "1948", "Michael Powell", 7));
+        movies.add(new Movie("Taxi Driver", "1976", "Martin Scorsese", 10));
+        movies.add(new Movie("The Wizard of Oz", "1939", "Victor Fleming", 7));
+        movies.add(new Movie("The Shining", "1980", "Stanley Kubrick", 10));
     }
 }
