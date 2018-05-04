@@ -15,14 +15,15 @@ public class MenuCreator {
         return welcomeMessage;
     }
 
-    public void printMenu(){
+    public Menu printMenu(){
         System.out.println(menu.title);
         for (int i = 0; i < menu.options.size(); i++) {
             System.out.println((i+1)+".- "+menu.options.get(i));
         }
+        return menu;
     }
 
-    public void addOptions(){
+    private void addOptions(){
         menu.options.add("List books");
         menu.options.add("Checkout book");
         menu.options.add("Return book");

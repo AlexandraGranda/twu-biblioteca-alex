@@ -18,6 +18,7 @@ public class MenuCreatorTest {
     public void testMenuAttributes(){
         MenuCreator menuCreator = new MenuCreator();
 
+        Assert.assertNotNull(menuCreator.printMenu().title);
         
     }
 
