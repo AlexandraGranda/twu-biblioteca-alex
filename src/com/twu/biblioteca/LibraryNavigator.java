@@ -92,13 +92,12 @@ public class LibraryNavigator {
     }
 
     private void checkout() {
-        String answer;
         char bookNumber;
         library.listBooks();
         System.out.println("\nPlease enter the number of the book you want to check out:");
         answer = scanner.nextLine();
         bookNumber = answer.charAt(0);
-        library.validateAvailableBook(answer, bookNumber);
+        library.validateAvailableBook(bookNumber);
     }
 
 

@@ -15,13 +15,23 @@ public class LibraryTest {
 
     @Test
     public void validateAvailableBook() {
+        char bookNumber = '7';
         Library library = new Library();
         library.addBooksToLibrary();
+        boolean expectedResult = true;
+
+        boolean actualResult = library.validateAvailableBook(bookNumber);
+
+        Assert.assertEquals(expectedResult, actualResult);
+
 
     }
 
     @Test
-    public void addMoviesToLibrary() {
-        addMoviesToLibrary();
+    public void testAddMoviesToLibrary() {
+        Library library = new Library();
+        library.addMoviesToLibrary();
+
+        Assert.assertNotNull(library.movies.get(0).name);
     }
 }

@@ -40,7 +40,7 @@ public class Library {
         books.add(new Book("To the Lighthouse", "Virginia Woolf", "1927", false));
     }
 
-    protected boolean validateAvailableBook(String answer, char bookNumber) {
+    protected boolean validateAvailableBook(char bookNumber) {
         Book checkedOutBook;
         boolean availableBook = false;
         if (Character.isLetter(bookNumber)){
@@ -53,7 +53,7 @@ public class Library {
             System.out.println("That book is not available");
         }
         else {
-            checkedOutBook = books.get(Integer.parseInt(answer)-1);
+            checkedOutBook = books.get(Integer.parseInt(bookNumber+"")-1);
             checkedOutBook.checkoutBook();
             System.out.println("\nThank you! Enjoy the book: "+checkedOutBook.title);
             availableBook = true;
