@@ -35,7 +35,7 @@ public class LibraryNavigator {
                 optionNumber = Integer.parseInt(option + "");
                 switch (optionNumber) {
                     case 1:
-                        library.listBooks();
+                        library.listAvailableBooks();
                         break;
                     case 2:
                         checkout();
@@ -64,28 +64,29 @@ public class LibraryNavigator {
     }
 
     private void returnBook() {
+        library.listLentBooks();
         System.out.println("\nPlease enter the title of the book you want to return:");
-        int bookIndex = 0;
 
         answer = scanner.nextLine();
 
-        validateBelongingBook(bookIndex);
+        validateBelongingBook();
     }
 
-    private void validateBelongingBook(int bookIndex) {
+    private void validateBelongingBook() {
         boolean flag = false;
+        int bookIndex = 0;
 
-        for (int i = 0; i < library.books.size(); i++) {
-            if (answer.equalsIgnoreCase(library.books.get(i).title)) {
+        for (int i = 0; i < library.lentBooks.size(); i++) {
+            if (answer.equalsIgnoreCase(library.lentBooks.get(i).title)) {
                 flag = true;
                 bookIndex = i;
             }
         }
 
-        if (flag && (library.books.get(bookIndex).isLent == true)) {
-            library.books.get(bookIndex).returnBook();
-            library.listBooks();
-            System.out.println("\nThank you for returning the book: " + library.books.get(bookIndex).title);
+        if (flag) {
+            library.returnBook(bookIndex);
+            library.listAvailableBooks();
+            System.out.println("\nThank you for returning the book: " + library.books.get(library.books.size()-1).title);
         } else {
             System.out.println("\nThat is not a valid book to return");
         }
@@ -93,11 +94,13 @@ public class LibraryNavigator {
 
     private void checkout() {
         char bookNumber;
-        library.listBooks();
+        library.listAvailableBooks();
         System.out.println("\nPlease enter the number of the book you want to check out:");
         answer = scanner.nextLine();
         bookNumber = answer.charAt(0);
-        library.validateAvailableBook(bookNumber);
+        if(library.validateAvailableBook(bookNumber)){
+            library.checkoutBook(Integer.parseInt(bookNumber+""));
+        }
     }
 
 

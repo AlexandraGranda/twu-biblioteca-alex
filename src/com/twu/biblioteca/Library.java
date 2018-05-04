@@ -3,20 +3,38 @@ package com.twu.biblioteca;
 import java.util.ArrayList;
 
 public class Library {
-    ArrayList<Book> books = new ArrayList();
-    ArrayList<Movie> movies = new ArrayList<Movie>();
+    protected ArrayList<Book> books;
+    protected ArrayList<Book> lentBooks;
+    protected ArrayList<Movie> movies;
+    protected ArrayList<Movie> lentMovies;
 
-    public ArrayList<Book> listBooks(){
+    public Library() {
+        books = new ArrayList<Book>();
+        lentBooks = new ArrayList<Book>();
+        movies = new ArrayList<Movie>();
+        lentMovies = new ArrayList<Movie>();
+    }
+
+
+    public ArrayList<Book> listAvailableBooks(){
 
         System.out.println("\nNo.\t\tTitle\t\t\t\t\t\t\tAuthor\t\t\t\t\tPublication Year");
 
         for (int i =0;i<books.size();i++) {
-            if (books.get(i).isLent==false){
-                System.out.printf("%-7.7s %-30.30s  %-22.22s  %-10.10s%n", ""+(i+1), books.get(i).title, books.get(i).author, books.get(i).yearPublished);
-            }
+            System.out.printf("%-7.7s %-30.30s  %-22.22s  %-10.10s%n", ""+(i+1), books.get(i).title, books.get(i).author, books.get(i).yearPublished);
         }
 
         return this.books;
+    }
+    public ArrayList<Book> listLentBooks(){
+
+        System.out.println("\nNo.\t\tTitle\t\t\t\t\t\t\tAuthor\t\t\t\t\tPublication Year");
+
+        for (int i = 0; i < lentBooks.size() ; i++) {
+            System.out.printf("%-7.7s %-30.30s  %-22.22s  %-10.10s%n", ""+(i+1), lentBooks.get(i).title, lentBooks.get(i).author, lentBooks.get(i).yearPublished);
+        }
+
+        return this.lentBooks;
     }
 
     public ArrayList<Movie> listMovies(){
@@ -41,7 +59,6 @@ public class Library {
     }
 
     protected boolean validateAvailableBook(char bookNumber) {
-        Book checkedOutBook;
         boolean availableBook = false;
         if (Character.isLetter(bookNumber)){
             System.out.println("That book is not available");
@@ -53,9 +70,6 @@ public class Library {
             System.out.println("That book is not available");
         }
         else {
-            checkedOutBook = books.get(Integer.parseInt(bookNumber+"")-1);
-            checkedOutBook.checkoutBook();
-            System.out.println("\nThank you! Enjoy the book: "+checkedOutBook.title);
             availableBook = true;
         }
         return availableBook;
@@ -69,5 +83,18 @@ public class Library {
         movies.add(new Movie("Taxi Driver", "1976", "Martin Scorsese", 10));
         movies.add(new Movie("The Wizard of Oz", "1939", "Victor Fleming", 7));
         movies.add(new Movie("The Shining", "1980", "Stanley Kubrick", 10));
+    }
+
+    public void checkoutBook(int bookNumber) {
+        Book aux = books.get(bookNumber-1);
+        books.remove(bookNumber-1);
+        lentBooks.add(aux);
+        System.out.println("Thank you! Enjoy the book: "+aux.title);
+    }
+
+    public void returnBook(int bookNumber){
+        Book aux = lentBooks.get(bookNumber);
+        lentBooks.remove(bookNumber);
+        books.add(aux);
     }
 }
