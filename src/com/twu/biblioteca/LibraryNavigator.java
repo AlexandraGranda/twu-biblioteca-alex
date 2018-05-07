@@ -1,16 +1,19 @@
 package com.twu.biblioteca;
 
+import com.twu.menuhandler.*;
+
 import java.util.Scanner;
 
 public class LibraryNavigator {
 
     private String answer;
     private char option;
-    private Library library;
+    public Library library;
     private MenuCreator menuCreator;
     private int optionNumber;
     private Scanner scanner;
     private boolean quit;
+    private boolean isLogged;
 
     public  LibraryNavigator(){
         scanner = new Scanner(System.in);
@@ -33,31 +36,10 @@ public class LibraryNavigator {
 
             if (!Character.isLetter(option)) {
                 optionNumber = Integer.parseInt(option + "");
-                switch (optionNumber) {
-                    case 1:
-                        library.listAvailableBooks();
-                        break;
-                    case 2:
-                        checkout();
-                        break;
-                    case 3:
-                        returnBook();
-                        break;
-                    case 4:
-                        library.listAvailableMovies();
-                        break;
-                    case 5:
-                        checkoutMovie();
-                        break;
-                    case 6:
-                        quit = true;
-                        System.out.println("You are now exiting the Biblioteca system...");
-                        break;
-                    default:
-                        System.out.println("Select a valid option!");
-                        break;
 
-                }
+                ListBooksHandler listBooksHandler = new ListBooksHandler(new CheckoutBookHandler(new ReturnBookHandler(new ListMoviesHandler(new CheckoutMovieHandler(new QuitHandler(new DefaultHandler()))))));
+
+                listBooksHandler.getHelp(optionNumber, this);
 
             } else {
                 System.out.println("Select a valid option!, please enter only the number of the option you selected");
@@ -66,7 +48,7 @@ public class LibraryNavigator {
         }
     }
 
-    private void checkoutMovie() {
+    public void checkoutMovie() {
         char movieNumber;
         library.listAvailableMovies();
         System.out.println("\nPlease enter the number of the movie you want to check out");
@@ -77,7 +59,7 @@ public class LibraryNavigator {
         }
     }
 
-    private void returnBook() {
+    public void returnBook() {
         library.listLentBooks();
         System.out.println("\nPlease enter the title of the book you want to return:");
 
@@ -106,7 +88,7 @@ public class LibraryNavigator {
         }
     }
 
-    private void checkout() {
+    public void checkout() {
         char bookNumber;
         library.listAvailableBooks();
         System.out.println("\nPlease enter the number of the book you want to check out:");
@@ -115,6 +97,10 @@ public class LibraryNavigator {
         if(library.validateAvailableBook(bookNumber)){
             library.checkoutBook(Integer.parseInt(bookNumber+""));
         }
+    }
+
+    public void quit(){
+        this.quit = true;
     }
 
 

@@ -29,6 +29,7 @@ public class MenuCreator {
         menu.options.add("Return book");
         menu.options.add("List movies");
         menu.options.add("Checkout movie");
+        menu.options.add("Login");
         menu.options.add("Quit");
     }
 
