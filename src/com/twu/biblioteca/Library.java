@@ -37,7 +37,7 @@ public class Library {
         return this.lentBooks;
     }
 
-    public ArrayList<Movie> listMovies(){
+    public ArrayList<Movie> listAvailableMovies(){
         System.out.println("\nNo.\t\tTitle\t\t\t\t\tDirector\t\t\t\t\tYear\t\tRating");
 
         for (int i = 0 ; i < movies.size() ; i++){
@@ -48,14 +48,25 @@ public class Library {
         return this.movies;
     }
 
+    public ArrayList<Movie> listLentMovies(){
+        System.out.println("\nNo.\t\tTitle\t\t\t\t\tDirector\t\t\t\t\tYear\t\tRating");
+
+        for (int i = 0 ; i < lentMovies.size() ; i++){
+            Movie movie = lentMovies.get(i);
+            System.out.printf("%-7.7s %-22.22s  %-26.26s  %-11.11s %4.4s%n", ""+(i+1), movie.name, movie.director, movie.year, (movie.rating!=0) ? movie.rating : "None");
+
+        }
+        return this.lentMovies;
+    }
+
     protected void addBooksToLibrary() {
-        books.add(new Book("The Killing Woods", "Lucy Christopher", "2014", false));
-        books.add(new Book("The Mark of the Dragonfly", "Jaleigh Johnson", "2014", false));
-        books.add(new Book("Defy", "Sara Larson", "2014", false));
-        books.add(new Book("Great Expectations", "Charles Dickens", "1861", false));
-        books.add(new Book("Moby-Dick", "Herman Melville", "1851", false));
-        books.add(new Book("Crime and Punishment", "Fiodor Dostoievsky", "1866", false));
-        books.add(new Book("To the Lighthouse", "Virginia Woolf", "1927", false));
+        books.add(new Book("The Killing Woods", "Lucy Christopher", "2014"));
+        books.add(new Book("The Mark of the Dragonfly", "Jaleigh Johnson", "2014"));
+        books.add(new Book("Defy", "Sara Larson", "2014"));
+        books.add(new Book("Great Expectations", "Charles Dickens", "1861"));
+        books.add(new Book("Moby-Dick", "Herman Melville", "1851"));
+        books.add(new Book("Crime and Punishment", "Fiodor Dostoievsky", "1866"));
+        books.add(new Book("To the Lighthouse", "Virginia Woolf", "1927"));
     }
 
     protected boolean validateAvailableBook(char bookNumber) {
@@ -66,13 +77,24 @@ public class Library {
         else if (Integer.parseInt(bookNumber+"")>books.size()){
             System.out.println("That book is not available");
         }
-        else if (books.get(Integer.parseInt(bookNumber+"")-1).isLent==true){
-            System.out.println("That book is not available");
-        }
         else {
             availableBook = true;
         }
         return availableBook;
+    }
+
+    protected boolean validateAvailableMovie(char movieNumber){
+        boolean availableMovie = false;
+        if(Character.isLetter(movieNumber)){
+            System.out.println("That movie is not availbale");
+        }
+        else if(Integer.parseInt(movieNumber+"")>movies.size()){
+            System.out.println("That movie is not available");
+        }
+        else {
+            availableMovie = true;
+        }
+        return availableMovie;
     }
 
     protected void addMoviesToLibrary(){
@@ -96,5 +118,12 @@ public class Library {
         Book aux = lentBooks.get(bookNumber);
         lentBooks.remove(bookNumber);
         books.add(aux);
+    }
+
+    public void checkoutMovie(int movieNumber) {
+        Movie aux = movies.get(movieNumber);
+        movies.remove(movieNumber);
+        lentMovies.add(aux);
+        System.out.println("Thank you! Enjoy the movie: "+aux.name);
     }
 }

@@ -56,8 +56,21 @@ public class LibraryTest {
         library.addBooksToLibrary();
         library.checkoutBook(bookNumber);
         originalSize = library.books.size();
-        library.returnBook(1);
+        library.returnBook(0);
 
         Assert.assertEquals(originalSize+1, library.books.size());
+    }
+
+    @Test
+    public void testCheckoutMovie(){
+        int movieNumber = 4;
+        int originalSize;
+        Library library = new Library();
+        library.addMoviesToLibrary();
+        originalSize = library.movies.size();
+        library.checkoutMovie(movieNumber);
+
+        Assert.assertEquals(originalSize-1, library.movies.size());
+
     }
 }

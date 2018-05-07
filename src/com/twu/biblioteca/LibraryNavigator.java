@@ -44,9 +44,12 @@ public class LibraryNavigator {
                         returnBook();
                         break;
                     case 4:
-                        library.listMovies();
+                        library.listAvailableMovies();
                         break;
                     case 5:
+                        checkoutMovie();
+                        break;
+                    case 6:
                         quit = true;
                         System.out.println("You are now exiting the Biblioteca system...");
                         break;
@@ -60,6 +63,17 @@ public class LibraryNavigator {
                 System.out.println("Select a valid option!, please enter only the number of the option you selected");
             }
 
+        }
+    }
+
+    private void checkoutMovie() {
+        char movieNumber;
+        library.listAvailableMovies();
+        System.out.println("\nPlease enter the number of the movie you want to check out");
+        answer = scanner.nextLine();
+        movieNumber = answer.charAt(0);
+        if(library.validateAvailableMovie(movieNumber)){
+            library.checkoutMovie(Integer.parseInt(movieNumber+"")-1);
         }
     }
 
