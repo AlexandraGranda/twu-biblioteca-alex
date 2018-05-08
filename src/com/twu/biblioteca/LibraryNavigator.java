@@ -12,7 +12,7 @@ public class LibraryNavigator {
     private MenuCreator menuCreator;
     private int optionNumber;
     private Scanner scanner;
-    private boolean quit;
+    boolean quit;
     public boolean isLogged;
     public int userIndex;
 
