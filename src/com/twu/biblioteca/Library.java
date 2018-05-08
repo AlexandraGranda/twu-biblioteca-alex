@@ -7,12 +7,22 @@ public class Library {
     protected ArrayList<Book> lentBooks;
     protected ArrayList<Movie> movies;
     protected ArrayList<Movie> lentMovies;
+    protected ArrayList<User> users;
 
     public Library() {
         books = new ArrayList<Book>();
         lentBooks = new ArrayList<Book>();
         movies = new ArrayList<Movie>();
         lentMovies = new ArrayList<Movie>();
+        users = new ArrayList<User>();
+        addUsers();
+    }
+
+    public void printUserInfo(int userIndex){
+        User user = users.get(userIndex);
+        System.out.println("Name: "+user.name);
+        System.out.println("Email Address: "+user.email);
+        System.out.println("Telephone Number: "+user.phone);
     }
 
 
@@ -48,17 +58,6 @@ public class Library {
         return this.movies;
     }
 
-    public ArrayList<Movie> listLentMovies(){
-        System.out.println("\nNo.\t\tTitle\t\t\t\t\tDirector\t\t\t\t\tYear\t\tRating");
-
-        for (int i = 0 ; i < lentMovies.size() ; i++){
-            Movie movie = lentMovies.get(i);
-            System.out.printf("%-7.7s %-22.22s  %-26.26s  %-11.11s %4.4s%n", ""+(i+1), movie.name, movie.director, movie.year, (movie.rating!=0) ? movie.rating : "None");
-
-        }
-        return this.lentMovies;
-    }
-
     protected void addBooksToLibrary() {
         books.add(new Book("The Killing Woods", "Lucy Christopher", "2014"));
         books.add(new Book("The Mark of the Dragonfly", "Jaleigh Johnson", "2014"));
@@ -86,7 +85,7 @@ public class Library {
     protected boolean validateAvailableMovie(char movieNumber){
         boolean availableMovie = false;
         if(Character.isLetter(movieNumber)){
-            System.out.println("That movie is not availbale");
+            System.out.println("That movie is not available");
         }
         else if(Integer.parseInt(movieNumber+"")>movies.size()){
             System.out.println("That movie is not available");
@@ -125,5 +124,14 @@ public class Library {
         movies.remove(movieNumber);
         lentMovies.add(aux);
         System.out.println("Thank you! Enjoy the movie: "+aux.name);
+    }
+
+    private void addUsers(){
+        users.add(new User("Alexandra Granda", "agranda@thoughtworks.com", "0999601084", "123-4567", "holi"));
+        users.add(new User("Pepita Pérez", "pperez@thoughtworks.com", "0989608888", "123-4568", "boli"));
+        users.add(new User("Juanito Alimaña", "jalimaña@thoughtworks.com", "0989608888", "123-4569", "xq tan soli"));
+        users.add(new User("Katty Vela", "kvela@thoughtworks.com", "0989607688", "123-4570", "aqui"));
+        users.add(new User("Homero Arias", "harias@thoughtworks.com", "09896087768", "123-471", "en la poli"));
+
     }
 }

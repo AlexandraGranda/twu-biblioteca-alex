@@ -13,13 +13,16 @@ public class LibraryNavigator {
     private int optionNumber;
     private Scanner scanner;
     private boolean quit;
-    private boolean isLogged;
+    public boolean isLogged;
+    public int userIndex;
 
     public  LibraryNavigator(){
         scanner = new Scanner(System.in);
         quit = false;
         library = new Library();
         menuCreator = new MenuCreator();
+        isLogged = false;
+        userIndex = 0;
     }
 
 
@@ -37,7 +40,7 @@ public class LibraryNavigator {
             if (!Character.isLetter(option)) {
                 optionNumber = Integer.parseInt(option + "");
 
-                ListBooksHandler listBooksHandler = new ListBooksHandler(new CheckoutBookHandler(new ReturnBookHandler(new ListMoviesHandler(new CheckoutMovieHandler(new QuitHandler(new DefaultHandler()))))));
+                ListBooksHandler listBooksHandler = new ListBooksHandler(new CheckoutBookHandler(new ReturnBookHandler(new ListMoviesHandler(new CheckoutMovieHandler(new LoginHandler(new UserInfoHandler(new QuitHandler(new DefaultHandler()))))))));
 
                 listBooksHandler.getHelp(optionNumber, this);
 
@@ -101,6 +104,37 @@ public class LibraryNavigator {
 
     public void quit(){
         this.quit = true;
+    }
+
+    public void login(){
+        System.out.println("\nPlease enter your library number, format xxx-xxxx");
+        answer = scanner.nextLine();
+        String regex = "\\d{3}-\\d{4}";
+        if(answer.matches(regex)){
+            validateUser();
+        } else {
+            System.out.println("That user does not exist, please review you library number.");
+        }
+    }
+
+    public void validateUser() {
+        for (int i = 0; i < library.users.size(); i++) {
+            if (library.users.get(i).libraryNumber.equals(answer))
+            {
+                System.out.println("\nPlease enter your password: \n");
+                answer = scanner.nextLine();
+                if(library.users.get(i).password.equals(answer))
+                {
+                    isLogged = true;
+                    userIndex = i;
+                    System.out.println("You have logged into the Biblioteca system "+library.users.get(i).name);
+                    break;
+                }
+            }
+        }
+        if(!isLogged){
+            System.out.println("Incorrect Password");
+        }
     }
 
 

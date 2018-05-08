@@ -17,6 +17,7 @@ public class MenuCreator {
 
     public Menu printMenu(){
         System.out.println(menu.title);
+
         for (int i = 0; i < menu.options.size(); i++) {
             System.out.println((i+1)+".- "+menu.options.get(i));
         }
@@ -30,6 +31,7 @@ public class MenuCreator {
         menu.options.add("List movies");
         menu.options.add("Checkout movie");
         menu.options.add("Login");
+        menu.options.add("User information");
         menu.options.add("Quit");
     }
 
